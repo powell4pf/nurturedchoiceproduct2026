@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NurturedChoice Products</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --honey: #e8a020;
+    --honey-light: #f5c84a;
+    --honey-dark: #b87318;
+    --earth: #3b2a1a;
+    --cream: #fdf6e3;
+    --peanut: #c8853a;
+    --green: #4a7c59;
+    --green-light: #6aab7a;
+    --white: #ffffff;
+    --shadow: rgba(59,42,26,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--earth);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  header {
+    background: linear-gradient(135deg, var(--earth) 0%, #5a3d20 60%, var(--honey-dark) 100%);
+    color: var(--cream);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(232,160,32,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(74,124,89,0.2) 0%, transparent 50%);
+  }
+
+  .hexagons {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.07;
+  }
+  .hexagons svg { width: 100%; height: 100%; }
+
+  .logo-area {
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .logo-badge {
+    width: 110px;
+    height: 110px;
+    background: linear-gradient(145deg, var(--honey), var(--honey-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 32px rgba(232,160,32,0.4);
+    font-size: 52px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  header h1 span { color: var(--honey-light); }
+
+  header p {
+    font-size: 1.15rem;
+    opacity: 0.82;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 36px;
+    max-width: 420px;
+  }
+
+  .header-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(37,211,102,0.4);
+  }
+  .btn-whatsapp:hover { background: #1ebe58; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+
+  .btn-email {
+    background: var(--honey);
+    color: var(--earth);
+    box-shadow: 0 4px 18px rgba(232,160,32,0.4);
+  }
+  .btn-email:hover { background: var(--honey-light); transform: translateY(-2px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+    opacity: 0.6;
+    font-size: 1.5rem;
+  }
+
+  /* NAV BAR */
+  nav {
+    background: var(--earth);
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  nav a {
+    color: var(--cream);
+    text-decoration: none;
+    padding: 14px 22px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, color 0.2s;
+    text-transform: uppercase;
+  }
+
+  nav a:hover, nav a.active { background: var(--honey); color: var(--earth); }
+
+  /* SECTIONS */
+  section {
+    padding: 64px 20px 80px;
+  }
+
+  .section-label {
+    display: inline-block;
+    background: var(--honey);
+    color: var(--earth);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 900;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .section-sub {
+    color: #7a6050;
+    font-size: 1rem;
+    margin-bottom: 44px;
+  }
+
+  /* PRODUCT GRID */
+  .product-section { background: var(--cream); }
+  .product-section:nth-child(even) { background: #fff7e8; }
+
+  .container { max-width: 1140px; margin: 0 auto; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(59,42,26,0.22); }
+
+  .card-thumb {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    background: linear-gradient(135deg, var(--cream), #ffe8b0);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-thumb.honey-bg { background: linear-gradient(135deg, #fff5d0, #fde38a); }
+  .card-thumb.nuts-bg  { background: linear-gradient(135deg, #f5ede0, #e8c88a); }
+
+  .card-body { padding: 18px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+
+  .card-meta {
+    font-size: 0.8rem;
+    color: #a08060;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--green);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .order-btn {
+    background: var(--honey);
+    color: var(--earth);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .order-btn:hover { background: var(--honey-light); transform: scale(1.05); }
+
+  /* BADGE */
+  .badge {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: var(--green);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 50px;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--earth);
+    color: var(--cream);
+    text-align: center;
+  }
+
+  .contact-section .section-title { color: var(--cream); }
+  .contact-section .section-sub { color: rgba(253,246,227,0.65); }
+
+  .contact-cards {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .contact-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 32px 36px;
+    min-width: 240px;
+    transition: background 0.2s;
+  }
+  .contact-card:hover { background: rgba(255,255,255,0.12); }
+
+  .contact-card .icon { font-size: 2.4rem; margin-bottom: 12px; }
+  .contact-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 6px; }
+  .contact-card p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 18px; }
+
+  /* FOOTER */
+  footer {
+    background: #1e1208;
+    color: rgba(253,246,227,0.5);
+    text-align: center;
+    padding: 22px 20px;
+    font-size: 0.82rem;
+  }
+
+  footer span { color: var(--honey); }
+
+  /* FLOATING WHATSAPP */
+  .fab-wa {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 58px; height: 58px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+    text-decoration: none;
+    z-index: 999;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 3s infinite;
+  }
+  .fab-wa:hover { transform: scale(1.12); box-shadow: 0 8px 32px rgba(37,211,102,0.65); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(10px); }
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+    50%      { box-shadow: 0 6px 36px rgba(37,211,102,0.8); }
+  }
+
+  @media(max-width:600px){
+    .grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .card-thumb { height: 120px; font-size: 44px; }
+    section { padding: 44px 14px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING WHATSAPP -->
+<a class="fab-wa" href="https://wa.me/254726441206" target="_blank" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.65 4.76 1.79 6.76L2 30l7.44-1.77A13.94 13.94 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.6a11.52 11.52 0 01-5.87-1.6l-.42-.25-4.42 1.06 1.1-4.3-.28-.44A11.52 11.52 0 0116 4.4c6.38 0 11.6 5.22 11.6 11.6S22.38 27.6 16 27.6zm6.36-8.62c-.35-.18-2.06-1.02-2.38-1.13-.32-.12-.55-.18-.78.18-.23.35-.9 1.13-1.1 1.37-.2.23-.4.26-.75.09-.35-.18-1.48-.55-2.82-1.75-1.04-.93-1.75-2.08-1.95-2.43-.2-.35-.02-.54.15-.72.16-.16.35-.41.52-.62.18-.2.23-.35.35-.58.12-.23.06-.44-.03-.62-.09-.18-.78-1.88-1.07-2.57-.28-.67-.57-.58-.78-.59h-.66c-.23 0-.6.09-.91.44-.32.35-1.2 1.17-1.2 2.85s1.23 3.3 1.4 3.53c.18.23 2.43 3.7 5.88 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.06-.84 2.35-1.66.29-.82.29-1.52.2-1.66-.08-.15-.3-.23-.65-.41z"/></svg>
+</a>
+
+<!-- HEADER -->
+<header>
+  <div class="hexagons">
+    <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="hex" x="0" y="0" width="80" height="69" patternUnits="userSpaceOnUse">
+        <polygon points="40,0 80,20 80,49 40,69 0,49 0,20" fill="none" stroke="#e8a020" stroke-width="1.5"/>
+      </pattern></defs>
+      <rect width="100%" height="100%" fill="url(#hex)"/>
+    </svg>
+  </div>
+  <div class="logo-area">
+    <div class="logo-badge">🌿</div>
+    <h1>Nurtured<span>Choice</span><br>Products</h1>
+    <p>Pure · Natural · Nourishing</p>
+    <div class="header-btns">
+      <a class="btn btn-whatsapp" href="https://wa.me/254726441206" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.65 4.76 1.79 6.76L2 30l7.44-1.77A13.94 13.94 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2z"/></svg>
+        Order on WhatsApp
+      </a>
+      <a class="btn btn-email" href="mailto:nurturedchoice@yahoo.com">
+        ✉️ Email Us
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">↓</div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#peanut-butter">Peanut Butter</a>
+  <a href="#honey">Honey</a>
+  <a href="#nuts">Roasted Nuts</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- PEANUT BUTTER -->
+<section class="product-section" id="peanut-butter">
+  <div class="container">
+    <span class="section-label">SweetNut</span>
+    <h2 class="section-title">Peanut Butter</h2>
+    <p class="section-sub">Rich, creamy or crunchy — packed with natural protein goodness.</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🥜<span class="badge">Smooth</span></div>
+        <div class="card-body">
+          <h3>SweetNut Peanut Butter 250g</h3>
+          <p class="card-meta">SMOOTH</p>
+          <div class="price-row">
+            <span class="price">KSh 185</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Peanut%20Butter%20250g%20Smooth%20(KSh%20185)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🥜<span class="badge">Crunchy</span></div>
+        <div class="card-body">
+          <h3>SweetNut Peanut Butter 250g</h3>
+          <p class="card-meta">CRUNCHY</p>
+          <div class="price-row">
+            <span class="price">KSh 185</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Peanut%20Butter%20250g%20Crunchy%20(KSh%20185)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🥜<span class="badge">Smooth</span></div>
+        <div class="card-body">
+          <h3>SweetNut Peanut Butter 400g</h3>
+          <p class="card-meta">SMOOTH</p>
+          <div class="price-row">
+            <span class="price">KSh 280</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Peanut%20Butter%20400g%20Smooth%20(KSh%20280)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🥜<span class="badge">Crunchy</span></div>
+        <div class="card-body">
+          <h3>SweetNut Peanut Butter 400g</h3>
+          <p class="card-meta">CRUNCHY</p>
+          <div class="price-row">
+            <span class="price">KSh 280</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Peanut%20Butter%20400g%20Crunchy%20(KSh%20280)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🥜<span class="badge">Smooth</span></div>
+        <div class="card-body">
+          <h3>SweetNut Peanut Butter 800g</h3>
+          <p class="card-meta">SMOOTH</p>
+          <div class="price-row">
+            <span class="price">KSh 515</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Peanut%20Butter%20800g%20Smooth%20(KSh%20515)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🥜<span class="badge">Crunchy</span></div>
+        <div class="card-body">
+          <h3>SweetNut Peanut Butter 800g</h3>
+          <p class="card-meta">CRUNCHY</p>
+          <div class="price-row">
+            <span class="price">KSh 515</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Peanut%20Butter%20800g%20Crunchy%20(KSh%20515)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HONEY -->
+<section class="product-section" id="honey" style="background:#fff7e8;">
+  <div class="container">
+    <span class="section-label">Quick Health</span>
+    <h2 class="section-title">Pure Natural Honey</h2>
+    <p class="section-sub">Golden, raw, and full of natural sweetness — in every size you need.</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯</div>
+        <div class="card-body">
+          <h3>Quick Health Honey 100g</h3>
+          <p class="card-meta">CLASSIC JAR</p>
+          <div class="price-row">
+            <span class="price">KSh 85</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%20100g%20(KSh%2085)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯</div>
+        <div class="card-body">
+          <h3>Quick Health Honey 200g</h3>
+          <p class="card-meta">CLASSIC JAR</p>
+          <div class="price-row">
+            <span class="price">KSh 175</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%20200g%20(KSh%20175)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯<span class="badge">Round</span></div>
+        <div class="card-body">
+          <h3>Quick Health Honey 300g</h3>
+          <p class="card-meta">ROUND JAR</p>
+          <div class="price-row">
+            <span class="price">KSh 225</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%20300g%20Round%20Jar%20(KSh%20225)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯<span class="badge">Squeeze</span></div>
+        <div class="card-body">
+          <h3>Quick Health Honey 300g</h3>
+          <p class="card-meta">SQUEEZE JAR</p>
+          <div class="price-row">
+            <span class="price">KSh 225</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%20300g%20Squeeze%20Jar%20(KSh%20225)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯<span class="badge">Round</span></div>
+        <div class="card-body">
+          <h3>Quick Health Honey 500g</h3>
+          <p class="card-meta">ROUND JAR</p>
+          <div class="price-row">
+            <span class="price">KSh 325</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%20500g%20Round%20Jar%20(KSh%20325)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯<span class="badge">Squeeze</span></div>
+        <div class="card-body">
+          <h3>Quick Health Honey 500g</h3>
+          <p class="card-meta">SQUEEZE JAR</p>
+          <div class="price-row">
+            <span class="price">KSh 325</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%20500g%20Squeeze%20Jar%20(KSh%20325)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb honey-bg">🍯<span class="badge">Best Value</span></div>
+        <div class="card-body">
+          <h3>Quick Health Honey 1kg</h3>
+          <p class="card-meta">FAMILY SIZE</p>
+          <div class="price-row">
+            <span class="price">KSh 680</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20Quick%20Health%20Honey%201kg%20(KSh%20680)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ROASTED NUTS -->
+<section class="product-section" id="nuts">
+  <div class="container">
+    <span class="section-label">SweetNut</span>
+    <h2 class="section-title">Roasted Nuts</h2>
+    <p class="section-sub">Perfectly roasted, irresistibly snackable — ideal for any time of day.</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🌰<span class="badge">Snack</span></div>
+        <div class="card-body">
+          <h3>SweetNut Roasted Nuts 50g</h3>
+          <p class="card-meta">SNACK PACK</p>
+          <div class="price-row">
+            <span class="price">KSh 45</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Roasted%20Nuts%2050g%20(KSh%2045)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🌰</div>
+        <div class="card-body">
+          <h3>SweetNut Roasted Nuts 100g</h3>
+          <p class="card-meta">MEDIUM PACK</p>
+          <div class="price-row">
+            <span class="price">KSh 70</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Roasted%20Nuts%20100g%20(KSh%2070)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-thumb nuts-bg">🌰<span class="badge">Value</span></div>
+        <div class="card-body">
+          <h3>SweetNut Roasted Nuts 200g</h3>
+          <p class="card-meta">LARGE PACK</p>
+          <div class="price-row">
+            <span class="price">KSh 125</span>
+            <a class="order-btn" href="https://wa.me/254726441206?text=Hi!%20I'd%20like%20to%20order%20SweetNut%20Roasted%20Nuts%20200g%20(KSh%20125)" target="_blank">Order</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <span class="section-label" style="background:var(--honey-light);">Get In Touch</span>
+    <h2 class="section-title">Order or Enquire</h2>
+    <p class="section-sub">Reach us via WhatsApp or Email — we're happy to help!</p>
+    <div class="contact-cards">
+
+      <div class="contact-card">
+        <div class="icon">📱</div>
+        <h3>WhatsApp</h3>
+        <p>Chat with us directly to place an order or ask any question.</p>
+        <a class="btn btn-whatsapp" href="https://wa.me/254726441206" target="_blank">
+          Chat Now · 0726 441 206
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <div class="icon">✉️</div>
+        <h3>Email Us</h3>
+        <p>Send us a message and we'll get back to you promptly.</p>
+        <a class="btn btn-email" href="mailto:nurturedchoice@yahoo.com">
+          nurturedchoice@yahoo.com
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>NurturedChoice Products</span> · Pure · Natural · Nourishing · Nairobi, Kenya</p>
+</footer>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+  });
+</script>
+</body>
+</html>
